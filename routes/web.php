@@ -17,6 +17,9 @@ Route::middleware('auth')->group(function () {
 });
 
 
+
+
+Route::redirect('/', 'test/login');
 Route::get('admin', function(){
     return 'Helo admin';
 })->middleware('role:admin');
@@ -25,6 +28,10 @@ Route::get('user', function(){
     return 'Helo user';
 })->middleware('role:user');
 
-Route::redirect('/', '/login');
+Route::prefix('test')->group(function() {
+    Route::get('/login', function(){
+        return Inertia::render('Test/Login');
+    });
+});
 
 require __DIR__.'/auth.php';
